@@ -31,6 +31,22 @@ const useStyles = makeStyles((theme) => createStyles({
 //ヘッダーのコンテンツ用の配列定義
 const headerList = ['名前', 'タスク内容', '編集', '完了'];
 
+const editBtn = <Button color="secondary" variant="contained">編集</Button>;
+const deleteBtn = <Button color="primary" variant="contained">完了</Button>;
+let rows = [
+    {
+        name: "モーリー",
+        content: "肩トレ",
+        edit: editBtn,
+        delete: deleteBtn,
+    },{
+        name: "ドンキーコング",
+        content: "バナナ補給",
+        edit: editBtn,
+        delete: deleteBtn,
+    },
+];
+
 function Home() {
     //定義したスタイルを利用するための設定
     const classes = useStyles();
@@ -52,16 +68,15 @@ function Home() {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        <TableRow>
-                                            <TableCell align="center">モーリー</TableCell>
-                                            <TableCell align="center">肩トレ</TableCell>
-                                            <TableCell align="center">
-                                                <Button color="secondary" variant="contained">編集</Button>
-                                            </TableCell>
-                                            <TableCell align="center">
-                                                <Button color="primary" variant="contained">完了</Button>
-                                            </TableCell>
-                                        </TableRow>
+                                        {rows.map((row, index) => (
+                                            <TableRow key={index}>
+                                                {Object.keys(row).map(function(key, i) {
+                                                    return(
+                                                        <TableCell align="center" key={i}>{row[key]}</TableCell>
+                                                    );
+                                                })}
+                                            </TableRow>
+                                        ))}
                                     </TableBody>
                                 </Table>
                             </TableContainer>
