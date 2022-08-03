@@ -74,8 +74,7 @@ function Home() {
                 //戻り値をtodosにセット
                 const tempPosts = posts
                 tempPosts.push(res.data);
-                setPosts(tempPosts)
-                setFormData('');
+                setPosts(tempPosts);
             })
             .catch(error => {
                 console.log(error);
