@@ -21,19 +21,6 @@ const headerList = ['名前', 'タスク内容', '編集', '完了'];
 
 const editBtn = <Button color="secondary" variant="contained">編集</Button>;
 const deleteBtn = <Button color="primary" variant="contained">完了</Button>;
-let rows = [
-    {
-        name: "モーリー",
-        content: "肩トレ",
-        edit: editBtn,
-        delete: deleteBtn,
-    },{
-        name: "ドンキーコング",
-        content: "バナナ補給",
-        edit: editBtn,
-        delete: deleteBtn,
-    },
-];
 
 function Home() {
     //定義したスタイルを利用するための設定
@@ -57,6 +44,16 @@ function Home() {
                 console.log('通信に失敗しました');
             });
     }
+
+    let rows = [];
+    posts.map((post) => {
+        rows.push({
+            name: post.name,
+            content: post.content,
+            edit: editBtn,
+            delete: deleteBtn,
+        });
+    });
 
     return (
         <div className="container">
