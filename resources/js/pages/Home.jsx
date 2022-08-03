@@ -1,12 +1,13 @@
 import React from 'react';
+import axios from 'axios';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import {
     Card,
     Button,
 } from '@material-ui/core';
-import MainTable from '../components/MainTable';
-import axios from 'axios';
 import { useState, useEffect } from 'react';
+import PostFrom from '../components/PostForm';
+import MainTable from '../components/MainTable';
 
 //スタイルの定義
 const useStyles = makeStyles((theme) => createStyles({
@@ -29,11 +30,14 @@ function Home() {
     // postsの状態を管理する
     const [posts, setPosts] = useState([]);
 
+    // フォームの入力値を管理するステートの定義
+    const [formData, setFormData] = useState({name:'', content:''});
+
     useEffect(() => {
         getPostsData();
     },[])
 
-    //一覧情報を取得しステートpostsにセットする
+    // 一覧情報を取得しステートpostsにセットする
     const getPostsData = () => {
         axios
             .get('/api/posts')
@@ -42,6 +46,38 @@ function Home() {
             })
             .catch(() => {
                 console.log('通信に失敗しました');
+            });
+    }
+
+    // 入力がされたら（都度）入力値を変更するためのfunction
+    const inputChange = (e) => {
+        const key = e.target.name;
+        const value = e.target.value;
+        formData[key] = value;
+        let data = Object.assign({}, formData);
+        setFormData(data);
+    }
+
+    // 新規登録
+    const createPost = async() => {
+        //空だと弾く
+        if(formData == ''){
+            return;
+        }
+        //入力値を投げる
+        await axios
+            .post('/api/post/create', {
+                name: formData.name,
+                content: formData.content
+            })
+            .then((res) => {
+                //戻り値をtodosにセット
+                const tempPosts = posts
+                tempPosts.push(res.data);
+                setPosts(tempPosts);
+            })
+            .catch(error => {
+                console.log(error);
             });
     }
 
@@ -61,6 +97,9 @@ function Home() {
                 <div className="col-md-10">
                     <div className="card">
                         <h1>タスク管理</h1>
+                        <Card className={classes.card}>
+                            <PostFrom data={formData} inputChange={inputChange} btnFunc={createPost} />
+                        </Card>
                         <Card className={classes.card}>
                             <MainTable headerList={headerList} rows={rows} />
                         </Card>
