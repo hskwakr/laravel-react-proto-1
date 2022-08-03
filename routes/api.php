@@ -16,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('api')->group(function () {
     Route::get('posts', [App\Http\Controllers\Api\PostController::class, 'index']);
+    Route::post('post/create', [App\Http\Controllers\Api\PostController::class, 'create']);
 });
