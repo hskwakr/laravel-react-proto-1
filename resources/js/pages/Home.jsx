@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import {
@@ -6,6 +5,8 @@ import {
     Button,
 } from '@material-ui/core';
 import MainTable from '../components/MainTable';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 //スタイルの定義
 const useStyles = makeStyles((theme) => createStyles({
@@ -20,23 +21,39 @@ const headerList = ['名前', 'タスク内容', '編集', '完了'];
 
 const editBtn = <Button color="secondary" variant="contained">編集</Button>;
 const deleteBtn = <Button color="primary" variant="contained">完了</Button>;
-let rows = [
-    {
-        name: "モーリー",
-        content: "肩トレ",
-        edit: editBtn,
-        delete: deleteBtn,
-    },{
-        name: "ドンキーコング",
-        content: "バナナ補給",
-        edit: editBtn,
-        delete: deleteBtn,
-    },
-];
 
 function Home() {
     //定義したスタイルを利用するための設定
     const classes = useStyles();
+
+    // postsの状態を管理する
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        getPostsData();
+    },[])
+
+    //一覧情報を取得しステートpostsにセットする
+    const getPostsData = () => {
+        axios
+            .get('/api/posts')
+            .then(response => {
+                setPosts(response.data);
+            })
+            .catch(() => {
+                console.log('通信に失敗しました');
+            });
+    }
+
+    let rows = [];
+    posts.map((post) => {
+        rows.push({
+            name: post.name,
+            content: post.content,
+            edit: editBtn,
+            delete: deleteBtn,
+        });
+    });
 
     return (
         <div className="container">
