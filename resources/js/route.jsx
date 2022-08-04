@@ -5,6 +5,7 @@ import {
     Route,
     Routes,
 } from 'react-router-dom';
+import PostEdit from './components/PostEdit';
 import Example from './pages/Example';
 import Home from './pages/Home';
 
@@ -13,6 +14,7 @@ ReactDOM.render((
         <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/example' element={<Example />} />
+            <Route path='/post/edit/:id' element={<PostEdit />} />
         </Routes>
     </BrowserRouter>
 ), document.getElementById('app'))

@@ -6,7 +6,7 @@ import {
     Button,
 } from '@material-ui/core';
 import { useState, useEffect } from 'react';
-import PostFrom from '../components/PostForm';
+import PostFrom from './PostForm';
 import MainTable from '../components/MainTable';
 
 //スタイルの定義
@@ -19,9 +19,6 @@ const useStyles = makeStyles((theme) => createStyles({
 
 //ヘッダーのコンテンツ用の配列定義
 const headerList = ['名前', 'タスク内容', '編集', '完了'];
-
-const editBtn = <Button color="secondary" variant="contained">編集</Button>;
-const deleteBtn = <Button color="primary" variant="contained">完了</Button>;
 
 function Home() {
     //定義したスタイルを利用するための設定
@@ -83,6 +80,9 @@ function Home() {
 
     let rows = [];
     posts.map((post) => {
+        let editBtn = <Button color="secondary" variant="contained" key={post.id} href={`/post/edit/${post.id}`}>編集</Button>;
+        let deleteBtn = <Button color="primary" variant="contained">完了</Button>;
+        
         rows.push({
             name: post.name,
             content: post.content,
