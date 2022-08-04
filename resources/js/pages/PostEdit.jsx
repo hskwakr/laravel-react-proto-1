@@ -1,62 +1,63 @@
-import React, { useState, useEffect } from 'react';
-import { Card } from '@material-ui/core';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
-import PostFrom from '../pages/PostForm';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Card } from "@material-ui/core";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
+import PostFrom from "../components/PostForm";
+import { useParams } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => createStyles({
-    card: {
-        margin: theme.spacing(5),
-        padding: theme.spacing(3),
-    },
-}));
+const useStyles = makeStyles((theme) =>
+    createStyles({
+        card: {
+            margin: theme.spacing(5),
+            padding: theme.spacing(3),
+        },
+    })
+);
 
 function PostEdit() {
     const classes = useStyles();
 
     const params = useParams();
 
-    const [editData, setEditData] = useState({name:'', content:''});
+    const [editData, setEditData] = useState({ name: "", content: "" });
 
     useEffect(() => {
         getEditData();
-    }, [])
+    }, []);
 
     function getEditData() {
         axios
-            .post('/api/edit', {
-                id: params.id
+            .post("/api/edit", {
+                id: params.id,
             })
-            .then(res => {
+            .then((res) => {
                 setEditData(res.data);
             })
             .catch(() => {
-                console.log('通信に失敗しました');
+                console.log("通信に失敗しました");
             });
     }
 
     function updatePost() {
-        if(editData == ''){
+        if (editData == "") {
             return;
         }
 
         //入力値を投げる
         axios
-            .post('/api/update', {
-                id: params.id,
+            .post("/api/update", {
+                id: editData.id,
                 name: editData.name,
-                content: editData.content
+                content: editData.content,
             })
             .then((res) => {
-                //setEditData(res.data);
-                console.log(res)
+                setEditData(res.data);
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log(error);
             });
     }
 
-    function inputChange(e){
+    function inputChange(e) {
         const key = e.target.name;
         const value = e.target.value;
         editData[key] = value;
@@ -71,7 +72,11 @@ function PostEdit() {
                     <div className="card">
                         <h1>タスク編集</h1>
                         <Card className={classes.card}>
-                            <PostFrom data={editData} inputChange={inputChange} btnFunc={updatePost} />
+                            <PostFrom
+                                data={editData}
+                                inputChange={inputChange}
+                                btnFunc={updatePost}
+                            />
                         </Card>
                     </div>
                 </div>
