@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import PostFrom from "../components/PostForm";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -14,10 +14,9 @@ const useStyles = makeStyles((theme) =>
 );
 
 function PostEdit() {
+    const navigation = useNavigate();
     const classes = useStyles();
-
     const params = useParams();
-
     const [editData, setEditData] = useState({ name: "", content: "" });
 
     useEffect(() => {
@@ -49,8 +48,9 @@ function PostEdit() {
                 name: editData.name,
                 content: editData.content,
             })
-            .then((res) => {
-                setEditData(res.data);
+            .then(() => {
+                // 画面遷移
+                navigation("/");
             })
             .catch((error) => {
                 console.log(error);

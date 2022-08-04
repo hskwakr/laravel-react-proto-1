@@ -5,6 +5,7 @@ import { Card, Button } from "@material-ui/core";
 import { useState, useEffect } from "react";
 import PostFrom from "../components/PostForm";
 import MainTable from "../components/MainTable";
+import { useNavigate } from "react-router-dom";
 
 //スタイルの定義
 const useStyles = makeStyles((theme) =>
@@ -22,6 +23,9 @@ const headerList = ["名前", "タスク内容", "編集", "完了"];
 function Home() {
     //定義したスタイルを利用するための設定
     const classes = useStyles();
+
+    // postsの状態を管理する
+    const navigation = useNavigate();
 
     // postsの状態を管理する
     const [posts, setPosts] = useState([]);
@@ -71,6 +75,9 @@ function Home() {
                 const tempPosts = posts;
                 tempPosts.push(res.data);
                 setPosts(tempPosts);
+
+                // 画面遷移
+                navigation('/');
             })
             .catch((error) => {
                 console.log(error);

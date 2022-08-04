@@ -38,7 +38,6 @@ function PostFrom(props) {
             <Button
                 color="primary"
                 variant="contained"
-                href="/"
                 onClick={btnFunc}
             >
                 登録
