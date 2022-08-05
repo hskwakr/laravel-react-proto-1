@@ -77,7 +77,23 @@ function Home() {
                 setPosts(tempPosts);
 
                 // 画面遷移
-                navigation('/');
+                navigation("/");
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const deletePost = async (post) => {
+        await axios
+            .post("/api/delete", {
+                id: post.id,
+            })
+            .then((res) => {
+                setPosts(res.data);
+
+                // 画面遷移
+                navigation("/");
             })
             .catch((error) => {
                 console.log(error);
@@ -97,7 +113,11 @@ function Home() {
             </Button>
         );
         let deleteBtn = (
-            <Button color="primary" variant="contained">
+            <Button
+                color="primary"
+                variant="contained"
+                onClick={() => deletePost(post)}
+            >
                 完了
             </Button>
         );
