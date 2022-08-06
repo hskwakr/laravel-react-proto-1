@@ -8,6 +8,8 @@
     - https://laravel.com/docs/9.x/sail#installing-composer-dependencies-for-existing-projects
 - Install dependencies with npm
     - `npm install`
+- Create .env
+    - `cp .env.example .env`
 - Start server
     - `./vendor/bin/sail up -d`
 - Generate API key
