@@ -11,9 +11,13 @@
 - Generate API key
     - `./vendor/bin/sail php artisan key:generate`
 - Migrate DB
-    - `./vendor/bin/sail php artisan `
+    - `./vendor/bin/sail php artisan migrate`
+- DB seeding
+    - `./vendor/bin/sail php artisan db:seed`
 - Start server
     - `./vendor/bin/sail up -d`
     - `npm run dev`
+- Access web
+    - http://localhost/
 - End server
-    - `./vendor/bin/sail down`
+    - `./vendor/bin/sail down -v`
