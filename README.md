@@ -4,7 +4,16 @@
 
 ## Local Development Environment
 
-- Init with composer
+- Install dependencies with composer
     - https://laravel.com/docs/9.x/sail#installing-composer-dependencies-for-existing-projects
+- Install dependencies with npm
+    - `npm install`
+- Generate API key
+    - `./vendor/bin/sail php artisan key:generate`
+- Migrate DB
+    - `./vendor/bin/sail php artisan `
 - Start server
     - `./vendor/bin/sail up -d`
+    - `npm run dev`
+- End server
+    - `./vendor/bin/sail down`
