@@ -4,5 +4,7 @@
 
 ## Local Development Environment
 
+- Init with composer
+    - https://laravel.com/docs/9.x/sail#installing-composer-dependencies-for-existing-projects
 - Start server
-    - ``
+    - `./vendor/bin/sail up -d`
