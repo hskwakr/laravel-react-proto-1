@@ -8,14 +8,15 @@
     - https://laravel.com/docs/9.x/sail#installing-composer-dependencies-for-existing-projects
 - Install dependencies with npm
     - `npm install`
+- Start server
+    - `./vendor/bin/sail up -d`
 - Generate API key
     - `./vendor/bin/sail php artisan key:generate`
 - Migrate DB
     - `./vendor/bin/sail php artisan migrate`
 - DB seeding
     - `./vendor/bin/sail php artisan db:seed`
-- Start server
-    - `./vendor/bin/sail up -d`
+- Run js render
     - `npm run dev`
 - Access web
     - http://localhost/
